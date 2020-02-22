@@ -101,6 +101,6 @@ def handler(event, context):
             'Access-Control-Allow-Credentials': True,
             'Access-Control-Allow-Origin': '*'
         },
-        'body': 'testing' #json.dumps({C.KEYWORD_MESSAGES: ui_response})
+        'body': json.dumps({C.KEYWORD_MESSAGES: ui_response})
     }
     return return_val
