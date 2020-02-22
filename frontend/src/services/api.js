@@ -1,9 +1,10 @@
-import superagent from 'superagent'
+// import superagent from 'superagent'
+import axios from 'axios'
 const BASE_URL = 'https://httpbin.org'
 // https://6jw75wvg62.execute-api.us-west-1.amazonaws.com/DigitalGraffiti/retrievemessage
 export default class Api {
   get (endpoint, params = {}) {
-    return superagent
+    return axios
       .get(`${BASE_URL}/${endpoint}`)
       .query(params)
 //      .withCredentials()
@@ -12,7 +13,7 @@ export default class Api {
   }
 
   post (endpoint, params = {}) {
-    return superagent
+    return axios
       .post(`${BASE_URL}/${endpoint}`)
       .send(params)
 //      .withCredentials()

@@ -4,6 +4,7 @@ import preset from '@rebass/preset'
 
 import Layout from "../components/layout"
 import Api from '../services/api'
+import { Message } from '../components/message'
 
 class Messages extends PureComponent {
   constructor (props) {
@@ -51,24 +52,11 @@ class Messages extends PureComponent {
       <ThemeProvider theme={preset}>
         <Layout>
           {/* {JSON.stringify(messages)} */}
-          <div>THIS</div>
           <Message messageContent={this.state.dummyMessages[0]} />
         </Layout>
       </ThemeProvider>
     )
   }
-}
-
-const Message = (props) => {
-  const { date, to, message, from } = props.messageContent
-  return (
-    <div style={{ color: 'black' }}>
-      {date}
-      To: {to}
-      {message}
-      Yours truly, {from}
-    </div>
-  )
 }
 
 export default Messages

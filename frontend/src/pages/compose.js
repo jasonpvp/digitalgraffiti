@@ -11,6 +11,9 @@ class Compose extends PureComponent {
 
     this.api = new Api()
     this.state = {}
+  }
+
+  componentDidMount () {
     navigator.geolocation.getCurrentPosition(geo => {
       console.log({geo})
       this.setState({geo}, this.getMessages)
