@@ -4,6 +4,7 @@ import preset from '@rebass/preset'
 
 import Layout from "../components/layout"
 import Api from '../services/api'
+import Geo from '../services/geo'
 
 class Messages extends PureComponent {
   constructor (props) {
@@ -25,15 +26,14 @@ class Messages extends PureComponent {
           message: "I like this place."
         }
       ]
-    }    
+    }
   }
 
   componentDidMount () {
-    navigator.geolocation.getCurrentPosition(
-      geo => {
-        console.log({geo})
-        this.setState({geo}, () => this.getMessages)
-      }, e => console.log(e))
+    Geo.get().then(geo => {
+      console.log({geo})
+      this.setState({geo}, () => this.getMessages)
+    })
   }
 
   getMessages = () => {
