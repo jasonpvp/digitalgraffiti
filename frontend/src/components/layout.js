@@ -8,7 +8,6 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
-import { Flex, Box } from 'reflexbox'
 
 import Header from "./header"
 import "./layout.css"
@@ -29,7 +28,7 @@ const Layout = ({ children }) => {
     <>
       <Header siteTitle={data.site.siteMetadata.title} />
       <div className={styles.content}>
-        <main>{children}</main>
+        {children}
       </div>
     </>
   )
