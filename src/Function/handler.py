@@ -38,9 +38,9 @@ def fetch_geographic_messages(latitude, longitude):
     # (longitude <= region_of_interest_longitude[0] and longitude >= region_of_interest_longitude[1])
     fe = Key('latitude').between(*region_of_interest_latitude) & Key('longitude').between(*region_of_interest_longitude)
     response = table.scan(FilterExpression=fe)
-    response_string = json.dumps(response, indent=2)
-    print(response_string)
-    return response_string
+    # response_string = json.dumps(response, indent=2)
+    print(response)
+    return response
 
 def get_database_table_handle():
     dynamodb = boto3.resource('dynamodb')
