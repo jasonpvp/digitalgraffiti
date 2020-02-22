@@ -90,11 +90,12 @@ def handler(event, context):
    #  'latitude': Decimal('45.5163521')}]
 
     messages = []
-    ui_response = {}
     for message in response[C.DB_KEYWORD_ITEMS]:
+        ui_response = {}
         for k,v in message.items():
             ui_response[k] = str(v)
         messages.append(ui_response)
+        del ui_response
 
     return_val = {
         'statusCode': 200,
