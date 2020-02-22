@@ -1,6 +1,7 @@
 import os
 import json
 import boto3
+from decimal import Decimal
 from boto3.dynamodb.conditions import Key, Attr
 
 class C(object):
@@ -53,7 +54,7 @@ def get_area_of_geographic_intrest(latitude, longitude):
     longitude_max = longitude + C.REGION_OF_INTREST_RADIUS
     longitude_min = longitude - C.REGION_OF_INTREST_RADIUS
 
-    return ((latitude_max, latitude_min), (longitude_max, longitude_min))
+    return ((Decimal(str(latitude_max)), Decimal(str(latitude_min))), (Decimal(str(longitude_max)), Decimal(str(longitude_min))))
 
 def handler(event, context):
     # Log the event argument for debugging and for use in local development.
