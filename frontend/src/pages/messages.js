@@ -34,6 +34,12 @@ class Messages extends PureComponent {
     Geo.get().then(geo => {
       console.log({geo})
       this.setState({geo}, () => this.getMessages)
+
+      // TODO: move this lookup to use the coords from the current message
+      Geo.findLocation({latitude: geo.coords.latitude, longitude: geo.coords.longitude}).then(resp => {
+        const city = resp?.data?.address?.city || 'Somewhere in time'
+        this.setState({city: `${city}-wrong-location`})
+      })
     })
   }
 
@@ -46,13 +52,15 @@ class Messages extends PureComponent {
   }
 
   render () {
-    const { dummyMessages } = this.state
+    const { dummyMessages, city } = this.state
+
     console.log("DUMMY", dummyMessages)
     return (
       <ThemeProvider theme={preset}>
         <Layout>
           {/* {JSON.stringify(messages)} */}
-          <Message messageContent={this.state.dummyMessages[0]} />
+          <Message messageContent={this.state.dummyMessages[0]} city={city}/>
+          {city}
         </Layout>
       </ThemeProvider>
     )

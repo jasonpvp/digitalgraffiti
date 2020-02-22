@@ -57,7 +57,7 @@ export default class Composer extends PureComponent {
   }
 
   render () {
-    const { rows, message, onSend } = this.state
+    const { rows, message } = this.state
 
     return (
       <div className={styles.container} >
