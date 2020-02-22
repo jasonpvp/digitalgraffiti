@@ -89,10 +89,12 @@ def handler(event, context):
    #  'message': 'I am glad you made it here today! 😃', 'id': '1', 'to': 'AWS Elemental',
    #  'latitude': Decimal('45.5163521')}]
 
+    messages = []
     ui_response = {}
     for message in response[C.DB_KEYWORD_ITEMS]:
         for k,v in message.items():
             ui_response[k] = str(v)
+        messages.append(ui_response)
 
     return_val = {
         'statusCode': 200,
@@ -101,6 +103,6 @@ def handler(event, context):
             'Access-Control-Allow-Credentials': True,
             'Access-Control-Allow-Origin': '*'
         },
-        'body': json.dumps({C.KEYWORD_MESSAGES: ui_response})
+        'body': json.dumps({C.KEYWORD_MESSAGES: messages})
     }
     return return_val
