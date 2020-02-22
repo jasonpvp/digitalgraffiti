@@ -18,17 +18,9 @@ class C(object):
     KEYWORD_MESSAGE = 'message'
     KEYWORD_LATITUDE = 'latitude'
     KEYWORD_LONGITUDE = 'longitude'
+    KEYWORD_TIMESTAMP = 'timestamp'
 
-########## RESPONSE_FORMAT
-# {
-# 	messages: [
-# 		{
-# 			latitude: Number,
-# 			longitude: Number,
-# 			message: String
-# 		}
-# 	]
-# }
+    DB_KEYWORD_ITEMS = 'Items'
 
 def fetch_geographic_messages(latitude, longitude):
     region_of_interest_latitude, region_of_interest_longitude = get_area_of_geographic_intrest(latitude, longitude)
@@ -67,7 +59,21 @@ def get_area_of_geographic_intrest(latitude, longitude):
 def handler(event, context):
     # Log the event argument for debugging and for use in local development.
     # print(json.dumps(event))
-    response = fetch_geographic_messages(45.5163521, -122.6793312)
+    response = fetch_geographic_messages(event[C.KEYWORD_LATITUDE], event[C.KEYWORD_LONGITUDE])
 
-    return response
+    ########## RESPONSE_FORMAT
+    # {
+    # 	messages: [
+    # 		{
+    # 			latitude: Number,
+    # 			longitude: Number,
+    # 			message: String
+    # 		}
+    # 	]
+    # }
+    for message in response[C.DB_KEYWORD_ITEMS]:
+        message[C.KEYWORD_LONGITUDE] = float(message[C.KEYWORD_LONGITUDE])
+        message[C.KEYWORD_LATITUDE] = float(message[C.KEYWORD_LATITUDE])
+
+    return json.dumps({C.KEYWORD_MESSAGES: response[C.DB_KEYWORD_ITEMS]}, indent=2)
 
