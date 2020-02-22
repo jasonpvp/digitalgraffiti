@@ -21,6 +21,9 @@ Resources:
               responses: {}
       EndpointConfiguration: REGIONAL
       TracingEnabled: true
+      Cors:
+        AllowHeaders: '''Authorization,Content-Type'''
+        AllowOrigin: '''*'''
   Bucket:
     Type: AWS::S3::Bucket
     Properties:
