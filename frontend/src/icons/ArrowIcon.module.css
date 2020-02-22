@@ -1,0 +1,17 @@
+.backward {
+  height: 100px;
+  transform: rotateY(0deg) rotate(-45deg); 
+  margin-top: 35px;
+}
+
+.forward {
+  height: 100px;
+  transform: rotateY(0deg) rotate(135deg); 
+}
+
+.button {
+  cursor: pointer;
+  background: none;
+  border: 0;
+  outline: none;
+}
