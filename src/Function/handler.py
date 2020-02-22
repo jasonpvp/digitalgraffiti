@@ -42,7 +42,7 @@ def fetch_geographic_messages(latitude, longitude):
     return response_string
 
 def get_database_table_handle():
-    dynamodb = boto3.client('dynamodb')
+    dynamodb = boto3.resource('dynamodb')
     return dynamodb.Table(C.database_table)
 
 def get_area_of_geographic_intrest(latitude, longitude):
