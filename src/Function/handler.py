@@ -96,13 +96,11 @@ def handler(event, context):
 
     return_val = {
         'statusCode': 200,
-        'isBase64Encoded': False,
         'headers': {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': True,
             'Access-Control-Allow-Origin': '*'
         },
-        'multiValueHeaders': {},
-        'body': {C.KEYWORD_MESSAGES: ui_response}
+        'body': 'testing' #json.dumps({C.KEYWORD_MESSAGES: ui_response})
     }
-    return json.dumps(return_val)
+    return return_val
