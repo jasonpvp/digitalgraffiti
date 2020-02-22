@@ -62,6 +62,7 @@ def get_area_of_geographic_intrest(latitude, longitude):
 def handler(event, context):
     # Log the event argument for debugging and for use in local development.
     # print(json.dumps(event))
+    print(event)
     response = fetch_geographic_messages(event[C.KEYWORD_LATITUDE], event[C.KEYWORD_LONGITUDE])
 
     ########## RESPONSE_FORMAT
@@ -87,5 +88,5 @@ def handler(event, context):
         for k,v in message.items():
             ui_response[k] = str(v)
 
-    return json.dumps({C.KEYWORD_MESSAGES: ui_response}, indent=2)
+    return {C.KEYWORD_MESSAGES: ui_response}
 

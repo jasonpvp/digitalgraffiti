@@ -5,15 +5,7 @@ import styles from './header.module.css'
 
 const Header = ({ siteTitle }) => (
   <header className={styles.container}>
-    <Link
-      to="/"
-      style={{
-        color: `black`,
-        textDecoration: `none`,
-      }}
-    >
-      {siteTitle}
-    </Link>
+    <Link to="/">{siteTitle}</Link>
     <Link to="messages">Messages</Link>
     <Link to="compose">Compose</Link>
   </header>
