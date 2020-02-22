@@ -63,39 +63,39 @@ def handler(event, context):
     # Log the event argument for debugging and for use in local development.
     # print(json.dumps(event))
     print(event)
-    clean_events = event
+    clean_event = event
     if 'body' in event:
-        clean_events = event['body']
+        clean_event = event['body']
         # clean_event = json.loads(event['body'])
-    for clean_event in clean_events:
-        print(event)
-        response = fetch_geographic_messages(clean_event[C.KEYWORD_LATITUDE], clean_event[C.KEYWORD_LONGITUDE])
+    response = fetch_geographic_messages(clean_event[C.KEYWORD_LATITUDE], clean_event[C.KEYWORD_LONGITUDE])
+    print('HERE IS THE EVENT TYPE, ALASTAIR:', type(clean_event))
 
-        ########## RESPONSE_FORMAT
-        # {
-        # 	messages: [
-        # 		{
-        # 			latitude: Number,
-        # 			longitude: Number,
-        # 			message: String
-        # 		}
-        # 	]
-        # }
 
-       #  {'Items': [{'from': 'DigitalGraffiti', 'longitude': Decimal('-122.6793312'), 'timestamp': Decimal('1582398872064'),
-       #  'message': 'Look out the south window on a summer evening. The sunset is beautiful. 🌇', 'id': '2',
-       #  'to': 'AWS Elemental', 'latitude': Decimal('45.5163521')},
-       # {'from': 'DigitalGraffiti', 'longitude': Decimal('-122.6793312'), 'timestamp': Decimal('1582398362797'),
-       #  'message': 'I am glad you made it here today! 😃', 'id': '1', 'to': 'AWS Elemental',
-       #  'latitude': Decimal('45.5163521')}]
+    ########## RESPONSE_FORMAT
+    # {
+    # 	messages: [
+    # 		{
+    # 			latitude: Number,
+    # 			longitude: Number,
+    # 			message: String
+    # 		}
+    # 	]
+    # }
 
-        # ui_response = {}
-        # for message in response[C.DB_KEYWORD_ITEMS]:
-        #     for k,v in message.items():
-        #         ui_response[k] = v
+   #  {'Items': [{'from': 'DigitalGraffiti', 'longitude': Decimal('-122.6793312'), 'timestamp': Decimal('1582398872064'),
+   #  'message': 'Look out the south window on a summer evening. The sunset is beautiful. 🌇', 'id': '2',
+   #  'to': 'AWS Elemental', 'latitude': Decimal('45.5163521')},
+   # {'from': 'DigitalGraffiti', 'longitude': Decimal('-122.6793312'), 'timestamp': Decimal('1582398362797'),
+   #  'message': 'I am glad you made it here today! 😃', 'id': '1', 'to': 'AWS Elemental',
+   #  'latitude': Decimal('45.5163521')}]
 
-        return {
-            'statusCode': 200,
-            'body': {C.KEYWORD_MESSAGES: response[C.DB_KEYWORD_ITEMS]}
-        }
+    # ui_response = {}
+    # for message in response[C.DB_KEYWORD_ITEMS]:
+    #     for k,v in message.items():
+    #         ui_response[k] = v
+
+    return {
+        'statusCode': 200,
+        'body': {C.KEYWORD_MESSAGES: response[C.DB_KEYWORD_ITEMS]}
+    }
 
