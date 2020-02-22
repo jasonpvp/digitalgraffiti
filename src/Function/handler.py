@@ -32,13 +32,14 @@ class C(object):
 def fetch_geographic_messages(latitude, longitude):
     region_of_interest_latitude, region_of_interest_longitude = get_area_of_geographic_intrest(latitude, longitude)
     table = get_database_table_handle()
-    fe = Key('latitude').between(*region_of_interest_latitude) & Key('longitude').between(*region_of_interest_longitude)
-    response = table.scan(FilterExpression=fe)
-    print(json.dumps(response), indent=2)
     # query logic:
     # (latitude <= region_of_interest_latitude[0] and latitude >= region_of_interest_latitude[1]) and
     # (longitude <= region_of_interest_longitude[0] and longitude >= region_of_interest_longitude[1])
-    # TODO: response = table.query()
+    fe = Key('latitude').between(*region_of_interest_latitude) & Key('longitude').between(*region_of_interest_longitude)
+    response = table.scan(FilterExpression=fe)
+    response_string = json.dumps(response, indent=2)
+    print(response_string)
+    return response_string
 
 def get_database_table_handle():
     dynamodb = boto3.client('dynamodb')
@@ -59,5 +60,5 @@ def handler(event, context):
     # print(json.dumps(event))
     response = fetch_geographic_messages(45.5163521, -122.6793312)
 
-    return {}
+    return response
 
