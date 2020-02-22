@@ -12,7 +12,7 @@ Resources:
         swagger: '2.0'
         info: {}
         paths:
-          /retrievemessage:
+          /retrievemessages:
             post:
               x-amazon-apigateway-integration:
                 httpMethod: POST
@@ -25,6 +25,8 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub ${AWS::StackName}-bucket-${AWS::AccountId}
+      WebsiteConfiguration:
+        IndexDocument: index.html
   RetrieveMessage:
     Type: AWS::Serverless::Function
     Properties:
@@ -47,10 +49,10 @@ Resources:
           TABLE_NAME: !Ref Mesasges
           TABLE_ARN: !GetAtt Mesasges.Arn
       Events:
-        ApiPOSTretrievemessage:
+        ApiPOSTretrievemessages:
           Type: Api
           Properties:
-            Path: /retrievemessage
+            Path: /retrievemessages
             Method: POST
             RestApiId: !Ref Api
   Mesasges:
