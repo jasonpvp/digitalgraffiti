@@ -1,6 +1,7 @@
 import os
 import json
 import boto3
+from copy import copy
 from decimal import Decimal
 from boto3.dynamodb.conditions import Key, Attr
 
@@ -19,6 +20,8 @@ class C(object):
     KEYWORD_LATITUDE = 'latitude'
     KEYWORD_LONGITUDE = 'longitude'
     KEYWORD_TIMESTAMP = 'timestamp'
+    KEYWORD_FROM = 'from'
+    KEYWORD_TO = 'to'
 
     DB_KEYWORD_ITEMS = 'Items'
 
@@ -71,9 +74,18 @@ def handler(event, context):
     # 		}
     # 	]
     # }
-    for message in response[C.DB_KEYWORD_ITEMS]:
-        message[C.KEYWORD_LONGITUDE] = float(message[C.KEYWORD_LONGITUDE])
-        message[C.KEYWORD_LATITUDE] = float(message[C.KEYWORD_LATITUDE])
 
-    return json.dumps({C.KEYWORD_MESSAGES: response[C.DB_KEYWORD_ITEMS]}, indent=2)
+   #  {'Items': [{'from': 'DigitalGraffiti', 'longitude': Decimal('-122.6793312'), 'timestamp': Decimal('1582398872064'),
+   #  'message': 'Look out the south window on a summer evening. The sunset is beautiful. 🌇', 'id': '2',
+   #  'to': 'AWS Elemental', 'latitude': Decimal('45.5163521')},
+   # {'from': 'DigitalGraffiti', 'longitude': Decimal('-122.6793312'), 'timestamp': Decimal('1582398362797'),
+   #  'message': 'I am glad you made it here today! 😃', 'id': '1', 'to': 'AWS Elemental',
+   #  'latitude': Decimal('45.5163521')}]
+
+    ui_response = {}
+    for message in response[C.DB_KEYWORD_ITEMS]:
+        for k,v in message.items():
+            ui_response[k] = str(v)
+
+    return json.dumps({C.KEYWORD_MESSAGES: ui_response}, indent=2)
 
