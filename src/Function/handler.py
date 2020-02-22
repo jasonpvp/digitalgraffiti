@@ -62,7 +62,7 @@ def get_area_of_geographic_intrest(latitude, longitude):
 def handler(event, context):
     # Log the event argument for debugging and for use in local development.
     # print(json.dumps(event))
-    # print(event)
+    print(event)
     clean_event = event
     if 'body' in event:
         clean_event = json.loads(event['body'])
