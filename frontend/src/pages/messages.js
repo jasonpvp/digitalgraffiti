@@ -54,13 +54,14 @@ class Messages extends PureComponent {
 
   getMessages = () => {
     const { latitude, longitude } = this.state.geo.coords
-    console.log("messages", this.state)
+
+    const messages = dummyMessages
+    this.setState({ messages, totalMessages: messages.length })
+    console.log('get msgs')
     // this.api.getMessages({latitude, longitude}).then((resp) => {
     //   console.log({messages: resp.body})
     //   this.setState({messages: resp.body})
     // })
-    const messages = dummyMessages
-    this.setState({ messages, totalMessages: messages.length })
   }
 
   onArrowClick = (dir) => {
