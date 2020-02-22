@@ -5,6 +5,7 @@ import styles from './message.module.css'
 
 const Message = (props) => {
   const { date, to, message, from } = props.messageContent
+  const { city } = props
 
   return (
     <div className={styles.container}>
@@ -13,6 +14,7 @@ const Message = (props) => {
       <div className={styles.message}>{message}</div>
       <div className={styles.from}>Yours truly,</div>
       <div className={styles.fromName}>{from}</div>
+      <div className={styles.location}>{city}</div>
     </div>
   )
 }

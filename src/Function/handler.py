@@ -63,7 +63,13 @@ def handler(event, context):
     # Log the event argument for debugging and for use in local development.
     # print(json.dumps(event))
     print(event)
-    response = fetch_geographic_messages(event[C.KEYWORD_LATITUDE], event[C.KEYWORD_LONGITUDE])
+    clean_event = event
+    if 'body' in event:
+        # clean_event = event['body']
+        clean_event = json.loads(event['body'])
+    print('LOOK HERE ALASTAIR:', clean_event)
+    response = fetch_geographic_messages(clean_event[C.KEYWORD_LATITUDE], clean_event[C.KEYWORD_LONGITUDE])
+
 
     ########## RESPONSE_FORMAT
     # {
@@ -83,10 +89,20 @@ def handler(event, context):
    #  'message': 'I am glad you made it here today! 😃', 'id': '1', 'to': 'AWS Elemental',
    #  'latitude': Decimal('45.5163521')}]
 
+    messages = []
     ui_response = {}
     for message in response[C.DB_KEYWORD_ITEMS]:
         for k,v in message.items():
             ui_response[k] = str(v)
+        messages.append(ui_response)
 
-    return {C.KEYWORD_MESSAGES: ui_response}
-
+    return_val = {
+        'statusCode': 200,
+        'headers': {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': True,
+            'Access-Control-Allow-Origin': '*'
+        },
+        'body': json.dumps({C.KEYWORD_MESSAGES: messages})
+    }
+    return return_val

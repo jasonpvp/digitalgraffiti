@@ -42,12 +42,19 @@ class Messages extends PureComponent {
   componentDidMount () {
     Geo.get().then(geo => {
       console.log({geo})
-      this.setState({geo}, () => this.getMessages())
+      this.setState({geo}, this.getMessages)
+
+      // TODO: move this lookup to use the coords from the current message
+      Geo.findLocation({latitude: geo.coords.latitude, longitude: geo.coords.longitude}).then(resp => {
+        const city = resp?.data?.address?.city || 'Somewhere in time'
+        this.setState({city: `${city}-wrong-location`})
+      })
     })
   }
 
   getMessages = () => {
     const { latitude, longitude } = this.state.geo.coords
+    console.log("messages", this.state)
     // this.api.getMessages({latitude, longitude}).then((resp) => {
     //   console.log({messages: resp.body})
     //   this.setState({messages: resp.body})
@@ -69,14 +76,15 @@ class Messages extends PureComponent {
   }
 
   render () {
-    const { currentMessageIndex, messages } = this.state
+    const { currentMessageIndex, messages, city } = this.state
     console.log("THIS STATE", this.state)
     return (
       <ThemeProvider theme={preset}>
         <Layout>
           <div className={styles.messagesWrapper}>
             <Arrows onClick={this.onArrowClick} currentMessageIndex={currentMessageIndex} >
-              {messages && <Message messageContent={messages[currentMessageIndex]} />}
+              {messages && <Message messageContent={messages[currentMessageIndex]} city={city}/>}
+              {/* {city} */}
             </Arrows>
           </div>
         </Layout>
