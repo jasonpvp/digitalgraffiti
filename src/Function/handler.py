@@ -65,35 +65,36 @@ def handler(event, context):
     print(event)
     clean_event = event
     if 'body' in event:
-        clean_event = event['body']
+        clean_events = event['body']
         # clean_event = json.loads(event['body'])
-    response = fetch_geographic_messages(clean_event[C.KEYWORD_LATITUDE], clean_event[C.KEYWORD_LONGITUDE])
+    for clean_event in clean_events:
+        response = fetch_geographic_messages(clean_event[C.KEYWORD_LATITUDE], clean_event[C.KEYWORD_LONGITUDE])
 
-    ########## RESPONSE_FORMAT
-    # {
-    # 	messages: [
-    # 		{
-    # 			latitude: Number,
-    # 			longitude: Number,
-    # 			message: String
-    # 		}
-    # 	]
-    # }
+        ########## RESPONSE_FORMAT
+        # {
+        # 	messages: [
+        # 		{
+        # 			latitude: Number,
+        # 			longitude: Number,
+        # 			message: String
+        # 		}
+        # 	]
+        # }
 
-   #  {'Items': [{'from': 'DigitalGraffiti', 'longitude': Decimal('-122.6793312'), 'timestamp': Decimal('1582398872064'),
-   #  'message': 'Look out the south window on a summer evening. The sunset is beautiful. 🌇', 'id': '2',
-   #  'to': 'AWS Elemental', 'latitude': Decimal('45.5163521')},
-   # {'from': 'DigitalGraffiti', 'longitude': Decimal('-122.6793312'), 'timestamp': Decimal('1582398362797'),
-   #  'message': 'I am glad you made it here today! 😃', 'id': '1', 'to': 'AWS Elemental',
-   #  'latitude': Decimal('45.5163521')}]
+       #  {'Items': [{'from': 'DigitalGraffiti', 'longitude': Decimal('-122.6793312'), 'timestamp': Decimal('1582398872064'),
+       #  'message': 'Look out the south window on a summer evening. The sunset is beautiful. 🌇', 'id': '2',
+       #  'to': 'AWS Elemental', 'latitude': Decimal('45.5163521')},
+       # {'from': 'DigitalGraffiti', 'longitude': Decimal('-122.6793312'), 'timestamp': Decimal('1582398362797'),
+       #  'message': 'I am glad you made it here today! 😃', 'id': '1', 'to': 'AWS Elemental',
+       #  'latitude': Decimal('45.5163521')}]
 
-    # ui_response = {}
-    # for message in response[C.DB_KEYWORD_ITEMS]:
-    #     for k,v in message.items():
-    #         ui_response[k] = v
+        # ui_response = {}
+        # for message in response[C.DB_KEYWORD_ITEMS]:
+        #     for k,v in message.items():
+        #         ui_response[k] = v
 
-    return {
-        'statusCode': 200,
-        'body': {C.KEYWORD_MESSAGES: response[C.DB_KEYWORD_ITEMS]}
-    }
+        return {
+            'statusCode': 200,
+            'body': {C.KEYWORD_MESSAGES: response[C.DB_KEYWORD_ITEMS]}
+        }
 
