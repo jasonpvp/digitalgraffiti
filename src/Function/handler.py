@@ -105,4 +105,4 @@ def handler(event, context):
         'multiValueHeaders': {},
         'body': {C.KEYWORD_MESSAGES: ui_response[C.DB_KEYWORD_ITEMS]}
     }
-    return json.dumps()
+    return json.dumps(return_val)
