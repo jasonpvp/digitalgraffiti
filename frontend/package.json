@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "digital-graffiti",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "messages between friends and friends you haven't met yet",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Hackathon team 12",
   "dependencies": {
     "@rebass/preset": "^4.0.5",
     "emotion-theming": "^10.0.27",
@@ -19,7 +19,8 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-helmet": "^5.2.1",
-    "rebass": "^4.0.7"
+    "rebass": "^4.0.7",
+    "superagent": "^5.2.2"
   },
   "devDependencies": {
     "prettier": "^1.19.1"

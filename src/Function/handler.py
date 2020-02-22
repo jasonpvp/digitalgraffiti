@@ -1,6 +1,63 @@
+import os
 import json
+import boto3
+from boto3.dynamodb.conditions import Key, Attr
+
+class C(object):
+    ### Config area ###
+    # database_region = 'us-west-1'
+    # database_url = ''
+    database_table = os.environ['TABLE_NAME']
+
+    ### CONSTANT VALUES ###
+    REGION_OF_INTREST_DIAMETER = 0.0003
+    REGION_OF_INTREST_RADIUS = 0.0003 / 2.0
+
+    KEYWORD_MESSAGES = 'messages'
+    KEYWORD_MESSAGE = 'message'
+    KEYWORD_LATITUDE = 'latitude'
+    KEYWORD_LONGITUDE = 'longitude'
+
+########## RESPONSE_FORMAT
+# {
+# 	messages: [
+# 		{
+# 			latitude: Number,
+# 			longitude: Number,
+# 			message: String
+# 		}
+# 	]
+# }
+
+def fetch_geographic_messages(latitude, longitude):
+    region_of_interest_latitude, region_of_interest_longitude = get_area_of_geographic_intrest(latitude, longitude)
+    table = get_database_table_handle()
+    fe = Key('latitude').between(*region_of_interest_latitude) & Key('longitude').between(*region_of_interest_longitude)
+    response = table.scan(FilterExpression=fe)
+    print(json.dumps(response), indent=2)
+    # query logic:
+    # (latitude <= region_of_interest_latitude[0] and latitude >= region_of_interest_latitude[1]) and
+    # (longitude <= region_of_interest_longitude[0] and longitude >= region_of_interest_longitude[1])
+    # TODO: response = table.query()
+
+def get_database_table_handle():
+    dynamodb = boto3.client('dynamodb')
+    return dynamodb.Table(C.database_table)
+
+def get_area_of_geographic_intrest(latitude, longitude):
+    # TODO: There's got to be a more graceful way of doing the same logic
+    latitude_max = latitude + C.REGION_OF_INTREST_RADIUS
+    latitude_min = latitude - C.REGION_OF_INTREST_RADIUS
+
+    longitude_max = longitude + C.REGION_OF_INTREST_RADIUS
+    longitude_min = longitude - C.REGION_OF_INTREST_RADIUS
+
+    return ((latitude_max, latitude_min), (longitude_max, longitude_min))
+
 def handler(event, context):
     # Log the event argument for debugging and for use in local development.
-    print(json.dumps(event))
+    # print(json.dumps(event))
+    response = fetch_geographic_messages(45.5163521, -122.6793312)
 
     return {}
+

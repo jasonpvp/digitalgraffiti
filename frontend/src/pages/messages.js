@@ -1,11 +1,11 @@
-import React, { PureComponent } from 'react'
-import { ThemeProvider } from 'emotion-theming'
-import preset from '@rebass/preset'
+import React, { PureComponent } from "react"
+import { Link } from "gatsby"
 
 import Layout from "../components/layout"
+import SEO from "../components/seo"
 import Api from '../services/api'
 
-export default class IndexPage extends PureComponent {
+class Messages extends PureComponent {
   constructor (props) {
     super(props)
 
@@ -21,16 +21,20 @@ export default class IndexPage extends PureComponent {
     const { latitude, longitude } = this.state.geo.coords
     this.api.getMessages({latitude, longitude}).then((resp) => {
       console.log({messages: resp.body})
+      this.setState({messages: resp.body})
     })
   }
 
   render () {
+    const { messages } = this.state
     return (
-      <ThemeProvider theme={preset}>
-        <Layout>{this.props.children}</Layout>
-      </ThemeProvider>
-
+      <Layout>
+        <SEO title="Messages" />
+        {JSON.stringify(messages)}
+        <Link to="/">Go back to the homepage</Link>
+      </Layout>
     )
   }
 }
-  
+
+export default Messages
