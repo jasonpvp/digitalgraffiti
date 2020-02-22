@@ -87,5 +87,5 @@ def handler(event, context):
         for k,v in message.items():
             ui_response[k] = str(v)
 
-    return json.dumps({C.KEYWORD_MESSAGES: ui_response}, indent=2)
+    return {C.KEYWORD_MESSAGES: ui_response}
 
