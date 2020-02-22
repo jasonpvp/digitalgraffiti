@@ -65,9 +65,9 @@ def handler(event, context):
     print(event)
     clean_event = event
     if 'body' in event:
-        clean_event = event['body']
-        # clean_event = json.loads(event['body'])
-    print('HERE IS THE EVENT TYPE, ALASTAIR:', type(clean_event))
+        # clean_event = event['body']
+        clean_event = json.loads(event['body'])
+    print('LOOK HERE ALASTAIR:', clean_event)
     response = fetch_geographic_messages(clean_event[C.KEYWORD_LATITUDE], clean_event[C.KEYWORD_LONGITUDE])
 
 
