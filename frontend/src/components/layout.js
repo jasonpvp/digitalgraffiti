@@ -8,7 +8,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
-import { Flex, Box } from 'reflexbox'
+// import { Flex, Box } from 'reflexbox'
 
 import Header from "./header"
 import "./layout.css"

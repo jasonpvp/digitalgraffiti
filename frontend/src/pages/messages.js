@@ -10,11 +10,30 @@ class Messages extends PureComponent {
     super(props)
 
     this.api = new Api()
-    this.state = {}
-    navigator.geolocation.getCurrentPosition(geo => {
-      console.log({geo})
-      this.setState({geo}, this.getMessages)
-    }, e => console.log(e))
+    this.state = { 
+      dummyMessages: [
+        {
+          from: 'Griffon',
+          to: 'Friends',
+          timestamp: new Date(),
+          message: "It is cold in the winter. The nights are dark."
+        },
+        {
+          from: 'Griffon',
+          to: 'My friend',
+          timestamp: new Date(),
+          message: "I like this place."
+        }
+      ]
+    }    
+  }
+
+  componentDidMount () {
+    navigator.geolocation.getCurrentPosition(
+      geo => {
+        console.log({geo})
+        this.setState({geo}, () => this.getMessages)
+      }, e => console.log(e))
   }
 
   getMessages = () => {
@@ -26,15 +45,30 @@ class Messages extends PureComponent {
   }
 
   render () {
-    const { messages } = this.state
+    const { dummyMessages } = this.state
+    console.log("DUMMY", dummyMessages)
     return (
       <ThemeProvider theme={preset}>
         <Layout>
-          {JSON.stringify(messages)}
+          {/* {JSON.stringify(messages)} */}
+          <div>THIS</div>
+          <Message messageContent={this.state.dummyMessages[0]} />
         </Layout>
       </ThemeProvider>
     )
   }
+}
+
+const Message = (props) => {
+  const { date, to, message, from } = props.messageContent
+  return (
+    <div style={{ color: 'black' }}>
+      {date}
+      To: {to}
+      {message}
+      Yours truly, {from}
+    </div>
+  )
 }
 
 export default Messages
