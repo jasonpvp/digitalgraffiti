@@ -10,10 +10,10 @@ const Message = (props) => {
   return (
     <div className={styles.container}>
       <div className={styles.date}>{moment(date).format("LLLL")}</div>
-      <div className={styles.to}>To: {to}</div>
+      <div className={styles.to}>Dearest {to},</div>
       <div className={styles.message}>{message}</div>
       <div className={styles.from}>Yours truly,</div>
-      <div>{from}</div>
+      <div className={styles.fromName}>{from}</div>
     </div>
   )
 }

@@ -1,9 +1,12 @@
 .container {
-  /* background: black; */
+  max-width: 480px;
 }
 
 .date {
-
+  font-style: italic;
+  font-size: 12px;
+  text-align: right;
+  padding-bottom: 24px;
 }
 
 .to {
@@ -11,9 +14,19 @@
 }
 
 .message {
-
+  padding: 8px 0 24px;
+  font-size: 24px;
 }
 
 .from {
+  text-align: right;
+  line-height: 1;
+  font-style: italic;
+}
 
+.fromName {
+  text-align: right;
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: 600;
 }
