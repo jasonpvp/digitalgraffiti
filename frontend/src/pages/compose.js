@@ -20,8 +20,10 @@ class Compose extends PureComponent {
     })
   }
 
-  sendMessage = () => {
-    console.log('send message')
+  onSend = (message) => {
+    this.api.sendMessage({
+      message
+    })
   }
 
   render () {
@@ -30,7 +32,7 @@ class Compose extends PureComponent {
       <ThemeProvider theme={preset}>
         <Layout>
           {!geo && 'Loading...'}
-          {geo && <Composer />}
+          {geo && <Composer onSend={this.onSend} />}
         </Layout>
       </ThemeProvider>
     )

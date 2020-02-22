@@ -1,7 +1,13 @@
 import React, { PureComponent } from 'react'
 import styles from './Composer.module.css'
+import Button from './Button'
+import PropTypes from 'prop-types'
 
 export default class Composer extends PureComponent {
+  static propTypes = {
+    onSend: PropTypes.func.isRequired
+  }
+
   constructor (props) {
     super(props)
     this.state = {
@@ -41,12 +47,17 @@ export default class Composer extends PureComponent {
     });
   }
 
+  onSend = () => {
+    const { message } = this.state
+    this.props.onSend(message)
+  }
+
   getTextAreaRef = (ref) => {
     this.textareaRef = ref
   }
 
   render () {
-    const { rows, message } = this.state
+    const { rows, message, onSend } = this.state
 
     return (
       <div className={styles.container} >
@@ -59,6 +70,9 @@ export default class Composer extends PureComponent {
           onChange={this.onChange}
           placeholder='Leave a message...'
         />
+        <div className={styles.sendButton}>
+          <Button onClick={this.onSend} label='Done' isDisabled={!message.length} />
+        </div>
       </div>
     )
   }

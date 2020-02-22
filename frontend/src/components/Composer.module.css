@@ -4,6 +4,8 @@
   position: relative;
   overflow: hidden;
   position: relative;
+  display: flex;
+  justify-content: center;
 }
 
 .input {
@@ -12,10 +14,14 @@
   resize: none;
   width: 100%;
   font-size: 24px;
-  box-shadow: 0 10px 5px #ccc;
+  box-shadow: 0 5px 5px #ddd;
   border: none;
   outline: none;
-  color: #888;
   padding: 20px;
   border-radius: 5px;
+}
+
+.sendButton {
+  position: absolute;
+  bottom: calc(50% - 60px);
 }
