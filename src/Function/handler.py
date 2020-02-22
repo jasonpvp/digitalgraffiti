@@ -92,5 +92,8 @@ def handler(event, context):
     #     for k,v in message.items():
     #         ui_response[k] = v
 
-    return {C.KEYWORD_MESSAGES: response[C.DB_KEYWORD_ITEMS]}
+    return {
+        'statusCode': 200,
+        'body': {C.KEYWORD_MESSAGES: response[C.DB_KEYWORD_ITEMS]}
+    }
 
