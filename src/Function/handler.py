@@ -85,7 +85,7 @@ def handler(event, context):
     ui_response = {}
     for message in response[C.DB_KEYWORD_ITEMS]:
         for k,v in message.items():
-            ui_response[k] = str(v)
+            ui_response[k] = float(str(v)) if str(v).isnumeric() else str(v)
 
     return json.dumps({C.KEYWORD_MESSAGES: ui_response}, indent=2)
 
