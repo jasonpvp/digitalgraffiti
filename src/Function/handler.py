@@ -103,6 +103,6 @@ def handler(event, context):
             'Access-Control-Allow-Origin': '*'
         },
         'multiValueHeaders': {},
-        'body': {C.KEYWORD_MESSAGES: ui_response[C.DB_KEYWORD_ITEMS]}
+        'body': {C.KEYWORD_MESSAGES: ui_response}
     }
     return json.dumps(return_val)
