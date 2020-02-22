@@ -63,11 +63,12 @@ def handler(event, context):
     # Log the event argument for debugging and for use in local development.
     # print(json.dumps(event))
     print(event)
-    clean_event = event
+    clean_events = event
     if 'body' in event:
         clean_events = event['body']
         # clean_event = json.loads(event['body'])
     for clean_event in clean_events:
+        print(event)
         response = fetch_geographic_messages(clean_event[C.KEYWORD_LATITUDE], clean_event[C.KEYWORD_LONGITUDE])
 
         ########## RESPONSE_FORMAT
