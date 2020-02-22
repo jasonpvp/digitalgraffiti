@@ -13,6 +13,8 @@ const Header = ({ siteTitle }) => (
     >
       {siteTitle}
     </Link>
+    <Link to="messages">Messages</Link>
+    <Link to="compose">Compose</Link>
   </header>
 )
 

@@ -5,7 +5,7 @@ import preset from '@rebass/preset'
 import Layout from "../components/layout"
 import Api from '../services/api'
 
-class Messages extends PureComponent {
+class Compose extends PureComponent {
   constructor (props) {
     super(props)
 
@@ -17,24 +17,21 @@ class Messages extends PureComponent {
     }, e => console.log(e))
   }
 
-  getMessages = () => {
-    const { latitude, longitude } = this.state.geo.coords
-    this.api.getMessages({latitude, longitude}).then((resp) => {
-      console.log({messages: resp.body})
-      this.setState({messages: resp.body})
-    })
+  sendMessage = () => {
+    console.log('send message')
   }
 
   render () {
-    const { messages } = this.state
+    const { geo } = this.state
     return (
       <ThemeProvider theme={preset}>
         <Layout>
-          {JSON.stringify(messages)}
+          {!geo && 'Loading...'}
+          {geo && 'Compose'}
         </Layout>
       </ThemeProvider>
     )
   }
 }
 
-export default Messages
+export default Compose
