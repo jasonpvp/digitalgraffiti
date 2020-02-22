@@ -3,7 +3,6 @@ import moment from 'moment'
 
 import styles from './message.module.css'
 
-
 const Message = (props) => {
   const { date, to, message, from } = props.messageContent
 
