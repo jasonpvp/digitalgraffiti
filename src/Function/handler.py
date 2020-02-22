@@ -100,7 +100,9 @@ def handler(event, context):
         'statusCode': 200,
         'headers': {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': '*',
+            'Access-Control-Allow-Headers': '*'
         },
         'body': json.dumps({C.KEYWORD_MESSAGES: messages})
     }
