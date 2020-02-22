@@ -630,4 +630,5 @@ pre tt:after {
 a {
   text-decoration: none;
   color: #888;
+  outline-color: #d9d9d9;
 }
