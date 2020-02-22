@@ -62,8 +62,11 @@ def get_area_of_geographic_intrest(latitude, longitude):
 def handler(event, context):
     # Log the event argument for debugging and for use in local development.
     # print(json.dumps(event))
-    print(event)
-    response = fetch_geographic_messages(event[C.KEYWORD_LATITUDE], event[C.KEYWORD_LONGITUDE])
+    # print(event)
+    clean_event = event
+    if 'body' in event:
+        clean_event = json.loads(event['body'])
+    response = fetch_geographic_messages(clean_event[C.KEYWORD_LATITUDE], clean_event[C.KEYWORD_LONGITUDE])
 
     ########## RESPONSE_FORMAT
     # {
@@ -83,10 +86,10 @@ def handler(event, context):
    #  'message': 'I am glad you made it here today! 😃', 'id': '1', 'to': 'AWS Elemental',
    #  'latitude': Decimal('45.5163521')}]
 
-    ui_response = {}
-    for message in response[C.DB_KEYWORD_ITEMS]:
-        for k,v in message.items():
-            ui_response[k] = str(v)
+    # ui_response = {}
+    # for message in response[C.DB_KEYWORD_ITEMS]:
+    #     for k,v in message.items():
+    #         ui_response[k] = v
 
-    return {C.KEYWORD_MESSAGES: ui_response}
+    return {C.KEYWORD_MESSAGES: response[C.DB_KEYWORD_ITEMS]}
 
