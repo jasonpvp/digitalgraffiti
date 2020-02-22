@@ -33,7 +33,7 @@ class Messages extends PureComponent {
   componentDidMount () {
     Geo.get().then(geo => {
       console.log({geo})
-      this.setState({geo}, () => this.getMessages)
+      this.setState({geo}, this.getMessages)
 
       // TODO: move this lookup to use the coords from the current message
       Geo.findLocation({latitude: geo.coords.latitude, longitude: geo.coords.longitude}).then(resp => {
@@ -45,6 +45,7 @@ class Messages extends PureComponent {
 
   getMessages = () => {
     const { latitude, longitude } = this.state.geo.coords
+    console.log('get msgs')
     this.api.getMessages({latitude, longitude}).then((resp) => {
       console.log({messages: resp.body})
       this.setState({messages: resp.body})
