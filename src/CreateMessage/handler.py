@@ -23,6 +23,7 @@ def put_message(**kwargs):
         'from': str(kwargs['from']) if 'from' in kwargs else 'Team 12',
         'to': str(kwargs['to']) if 'to' in kwargs else 'AWS Hackers'
     }
+    print(payload)
     table = get_database_table_handle()
     table.put_item(Item=payload)
     return payload
