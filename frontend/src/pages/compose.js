@@ -5,6 +5,7 @@ import Composer from '../components/Composer'
 import Layout from "../components/layout"
 import Api from '../services/api'
 import Geo from '../services/geo'
+import { navigate } from 'gatsby'
 
 class Compose extends PureComponent {
   constructor (props) {
@@ -28,6 +29,8 @@ class Compose extends PureComponent {
       message,
       latitude,
       longitude
+    }).then(resp => {
+      navigate('messages')
     })
   }
 
