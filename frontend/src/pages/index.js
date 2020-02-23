@@ -7,6 +7,7 @@ import Image from '../components/image'
 import styles from './index.module.css'
 import Geo from '../services/geo'
 import { navigate } from 'gatsby'
+import { LogoIcon } from '../icons/LogoIcon'
 
 export default class IndexPage extends PureComponent {
   componentDidMount () {
@@ -24,7 +25,7 @@ export default class IndexPage extends PureComponent {
       <ThemeProvider theme={preset}>
         <Layout>
           <div className={styles.logo}>
-            <Image />
+            <LogoIcon />
           </div>
         </Layout>
       </ThemeProvider>
