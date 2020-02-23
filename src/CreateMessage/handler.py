@@ -10,7 +10,7 @@ def get_uid():
 
 def get_database_table_handle():
     dynamodb = boto3.resource('dynamodb')
-    return dynamodb.Table(C.database_table)
+    return dynamodb.Table(os.environ['TABLE_NAME'])
 
 def put_message(**kwargs):
     payload = {
