@@ -7,7 +7,7 @@ from decimal import Decimal
 
 def get_uid():
     # TODO: real uid
-    return int(random()*1000) + 10
+    return str(int(random()*1000) + 10)
 
 def get_database_table_handle():
     dynamodb = boto3.resource('dynamodb')
