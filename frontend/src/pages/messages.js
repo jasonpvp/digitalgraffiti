@@ -7,6 +7,7 @@ import Api from '../services/api'
 import Message from '../components/message'
 import { Arrows } from '../components/Arrows'
 import Geo from '../services/geo'
+import Loader from '../components/Loader'
 import styles from "./messages.module.css"
 
 //const dummyMessages = [
@@ -75,9 +76,12 @@ class Messages extends PureComponent {
       <ThemeProvider theme={preset}>
         <Layout>
           <div className={styles.messagesWrapper}>
-            <Arrows onClick={this.onArrowClick} currentMessageIndex={currentMessageIndex} >
-              {messages && <Message messageContent={messages[currentMessageIndex]} />}
-            </Arrows>
+            {messages && 
+              <Arrows onClick={this.onArrowClick} currentMessageIndex={currentMessageIndex} >
+                <Message messageContent={messages[currentMessageIndex]} />
+              </Arrows>
+            }
+            {!messages && <Loader />}
           </div>
         </Layout>
       </ThemeProvider>
