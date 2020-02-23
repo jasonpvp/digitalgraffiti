@@ -21,8 +21,13 @@ class Compose extends PureComponent {
   }
 
   onSend = (message) => {
+    const { geo } = this.state
+    if (!geo) return
+    const { latitude, longitude } = geo.coords
     this.api.sendMessage({
-      message
+      message,
+      latitude,
+      longitude
     })
   }
 
