@@ -20,8 +20,8 @@ def put_message(**kwargs):
         'timestamp': int(time()),
         'message': str(kwargs['message']) if 'message' in kwargs else 'messsage Uh oh!',
         'id': get_uid(),
-        'from': str(kwargs['from']) if 'from' in kwargs else 'from Uh oh!',
-        'to': str(kwargs['to']) if 'to' in kwargs else 'to Uh oh!'
+        'from': str(kwargs['from']) if 'from' in kwargs else 'Team 12',
+        'to': str(kwargs['to']) if 'to' in kwargs else 'AWS Hackers'
     }
     table = get_database_table_handle()
     table.put_item(Item=payload)
@@ -37,6 +37,10 @@ def handler(event, context):
 
     payload = put_message(**clean_event)
 
+    return_payload = {}
+    for k,v in payload.items():
+        return_payload[k] = str(v)
+
     return_val = {
         'statusCode': 200,
         'headers': {
@@ -45,6 +49,8 @@ def handler(event, context):
             'Access-Control-Allow-Methods': '*',
             'Access-Control-Allow-Headers': '*'
         },
-        'body': json.dumps(payload)
+        'body': json.dumps(return_payload)
     }
+
+
     return return_val
