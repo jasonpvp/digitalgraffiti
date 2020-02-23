@@ -19,7 +19,7 @@ export default class Api {
     return this.post('retrievemessages', {latitude, longitude})
   }
 
-  sendMessage = ({message}) => {
-    console.log('send', {message})
+  sendMessage = ({latitude, longitude, message}) => {
+    console.log('send', {latitude, longitude, message})
   }
 }
