@@ -4,7 +4,7 @@ import preset from '@rebass/preset'
 
 import Layout from "../components/layout"
 import Api from '../services/api'
-import { Message } from '../components/message'
+import Message from '../components/message'
 import { Arrows } from '../components/Arrows'
 import Geo from '../services/geo'
 import styles from "./messages.module.css"
@@ -43,12 +43,6 @@ class Messages extends PureComponent {
     Geo.get().then(geo => {
       console.log({geo})
       this.setState({geo}, this.getMessages)
-
-      // TODO: move this lookup to use the coords from the current message
-      Geo.findLocation({latitude: geo.coords.latitude, longitude: geo.coords.longitude}).then(resp => {
-        const city = resp?.data?.address?.city || 'Somewhere in time'
-        this.setState({city: `${city}-wrong-location`})
-      })
     })
   }
 
@@ -75,14 +69,14 @@ class Messages extends PureComponent {
   }
 
   render () {
-    const { currentMessageIndex, messages, city } = this.state
+    const { currentMessageIndex, messages } = this.state
     console.log("THIS STATE", this.state)
     return (
       <ThemeProvider theme={preset}>
         <Layout>
           <div className={styles.messagesWrapper}>
             <Arrows onClick={this.onArrowClick} currentMessageIndex={currentMessageIndex} >
-              {messages && <Message messageContent={messages[currentMessageIndex]} city={city}/>}
+              {messages && <Message messageContent={messages[currentMessageIndex]} />}
             </Arrows>
           </div>
         </Layout>
