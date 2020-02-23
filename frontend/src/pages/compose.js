@@ -12,7 +12,7 @@ class Compose extends PureComponent {
     super(props)
 
     this.api = new Api()
-    this.state = {}
+    this.state = { sending: false }
   }
 
   componentDidMount () {
@@ -30,17 +30,19 @@ class Compose extends PureComponent {
       latitude,
       longitude
     }).then(resp => {
+      this.setState({sending: false})
       navigate('messages')
     })
+    this.setState({sending: true})
   }
 
   render () {
-    const { geo } = this.state
+    const { geo, sending } = this.state
     return (
       <ThemeProvider theme={preset}>
         <Layout>
           {!geo && 'Loading...'}
-          {geo && <Composer onSend={this.onSend} />}
+          {geo && <Composer onSend={this.onSend} sending={sending} />}
         </Layout>
       </ThemeProvider>
     )

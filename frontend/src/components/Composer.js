@@ -58,6 +58,7 @@ export default class Composer extends PureComponent {
 
   render () {
     const { rows, message } = this.state
+    const { sending } = this.props
 
     return (
       <div className={styles.container} >
@@ -69,9 +70,10 @@ export default class Composer extends PureComponent {
           ref={this.getTextAreaRef}
           onChange={this.onChange}
           placeholder='Leave a message...'
+          disabled={sending}
         />
         <div className={styles.sendButton}>
-          <Button onClick={this.onSend} label='Done' isDisabled={!message.length} />
+          <Button onClick={this.onSend} label='Done' isDisabled={!message.length && !sending} />
         </div>
       </div>
     )
