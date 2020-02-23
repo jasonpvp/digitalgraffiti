@@ -14,8 +14,8 @@ def get_database_table_handle():
 
 def put_message(**kwargs):
     payload = {
-        'latitude': kwargs['latitude'] if 'latitude' in kwargs else 'latitude Uh oh!',
-        'longitude': kwargs['longitude'] if 'longitude' in kwargs else 'longitude Uh oh!',
+        'latitude': kwargs['latitude'] if 'latitude' in kwargs else 0.0,
+        'longitude': kwargs['longitude'] if 'longitude' in kwargs else 0.0,
         'timestamp': int(time()),
         'message': str(kwargs['message']) if 'message' in kwargs else 'messsage Uh oh!',
         'id': get_uid(),
