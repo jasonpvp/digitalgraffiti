@@ -19,6 +19,13 @@ Resources:
                 type: aws_proxy
                 uri: !Sub arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${RetrieveMessage.Arn}/invocations
               responses: {}
+          /createmessage:
+            post:
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri: !Sub arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CreateMessage.Arn}/invocations
+              responses: {}
       EndpointConfiguration: REGIONAL
       TracingEnabled: true
       Cors:
@@ -71,6 +78,34 @@ Resources:
       StreamSpecification:
         StreamViewType: NEW_AND_OLD_IMAGES
       TableName: !Sub ${AWS::StackName}-Mesasges
+  CreateMessage:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${AWS::StackName}-CreateMessage
+      Description: !Sub
+        - Stack ${StackTagName} Environment ${EnvironmentTagName} Function ${ResourceName}
+        - ResourceName: CreateMessage
+      CodeUri: src/CreateMessage
+      Handler: handler.handler
+      Runtime: python3.7
+      MemorySize: 3008
+      Timeout: 30
+      Tracing: Active
+      Policies:
+        - AWSXrayWriteOnlyAccess
+        - DynamoDBCrudPolicy:
+            TableName: !Ref Mesasges
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref Mesasges
+          TABLE_ARN: !GetAtt Mesasges.Arn
+      Events:
+        ApiPOSTcreatemessage:
+          Type: Api
+          Properties:
+            Path: /createmessage
+            Method: POST
+            RestApiId: !Ref Api
 Parameters:
   StackTagName:
     Type: String
