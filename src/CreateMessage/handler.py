@@ -3,6 +3,7 @@ import json
 import boto3
 from time import time
 from random import random
+from decimal import Decimal
 
 def get_uid():
     # TODO: real uid
@@ -14,8 +15,8 @@ def get_database_table_handle():
 
 def put_message(**kwargs):
     payload = {
-        'latitude': kwargs['latitude'] if 'latitude' in kwargs else 0.0,
-        'longitude': kwargs['longitude'] if 'longitude' in kwargs else 0.0,
+        'latitude': Decimal(kwargs['latitude'] if 'latitude' in kwargs else 0.0),
+        'longitude': Decimal(kwargs['longitude'] if 'longitude' in kwargs else 0.0),
         'timestamp': int(time()),
         'message': str(kwargs['message']) if 'message' in kwargs else 'messsage Uh oh!',
         'id': get_uid(),
