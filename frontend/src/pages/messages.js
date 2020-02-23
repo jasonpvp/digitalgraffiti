@@ -8,6 +8,7 @@ import Message from '../components/message'
 import { Arrows } from '../components/Arrows'
 import Geo from '../services/geo'
 import styles from "./messages.module.css"
+import { Link } from "gatsby"
 
 //const dummyMessages = [
 //  {
@@ -71,15 +72,17 @@ class Messages extends PureComponent {
   render () {
     const { currentMessageIndex, messages } = this.state
     console.log("THIS STATE", this.state)
+    const hasMessages = !!(messages && messages.length)
     return (
       <ThemeProvider theme={preset}>
         <Layout>
           <div className={styles.messagesWrapper}>
-            {messages && 
+            {hasMessages &&
               <Arrows onClick={this.onArrowClick} currentMessageIndex={currentMessageIndex} >
                 <Message messageContent={messages[currentMessageIndex]} />
               </Arrows>
             }
+            {!hasMessages && <Link to='compose'>Leave a message here</Link>}
           </div>
         </Layout>
       </ThemeProvider>
