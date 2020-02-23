@@ -20,6 +20,6 @@ export default class Api {
   }
 
   sendMessage = ({latitude, longitude, message}) => {
-    console.log('send', {latitude, longitude, message})
+        return this.post('createmessage', {latitude, longitude, message})
   }
 }
