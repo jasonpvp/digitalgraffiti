@@ -2,10 +2,17 @@ import * as React from 'react';
 import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as WebBrowser from 'expo-web-browser';
+import MessageContext from '../contexts/messageContext';
 
 import { MonoText } from '../components/StyledText';
 
 export default function HomeScreen() {
+  const messageContext = React.useContext(MessageContext.Context)
+
+  React.useEffect(() => {
+    messageContext.getMessages()
+  }, [])
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -30,7 +37,7 @@ export default function HomeScreen() {
           </View>
 
           <Text style={styles.getStartedText}>
-            Change any of the text, save the file, and your app will automatically reload.
+            Messages: {messageContext.loading ? 'Loading...' : `${messageContext.messages.length} messages`}
           </Text>
         </View>
 
