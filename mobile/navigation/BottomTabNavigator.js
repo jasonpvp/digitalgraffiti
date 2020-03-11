@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import ComposeScreen from '../screens/ComposeScreen';
 import MessagesScreen from '../screens/MessagesScreen';
 
 const BottomTab = createBottomTabNavigator();
@@ -33,8 +33,8 @@ export default function BottomTabNavigator({ navigation, route }) {
         }}
       />
       <BottomTab.Screen
-        name="Links"
-        component={LinksScreen}
+        name="Compose"
+        component={ComposeScreen}
         options={{
           title: 'Compose',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book" />,
@@ -50,7 +50,7 @@ function getHeaderTitle(route) {
   switch (routeName) {
     case 'Home':
       return 'DigitalGraffiti';
-    case 'Links':
+    case 'Compose':
       return 'Compose a message';
     case 'Messages':
       return 'Messages nearby';

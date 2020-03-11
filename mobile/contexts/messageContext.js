@@ -14,20 +14,24 @@ class Provider extends PureComponent {
   }
 
   getMessages = () => {
-    Geo.get().then((geo) => {
-      const { latitude, longitude } = geo.coords
+    const promise = new Promise((resolve, reject) => {
+      Geo.get().then((geo) => {
+        const { latitude, longitude } = geo.coords
 
-      Api.getMessages({latitude, longitude}).then((resp) => {
-        const { messages } = resp.data
-        this.setState({messages, loading: false})
+        Api.getMessages({latitude, longitude}).then((resp) => {
+          const { messages } = resp.data
+          this.setState({messages, loading: false})
+          resolve()
+        })
       })
     })
+    return promise
   }
 
   sendMessage = ({message}) => {
     Geo.get().then((geo) => {
       const { latitude, longitude } = geo.coords
-      Api.sendMessage({latitude, longitude, message})
+      Api.sendMessage({latitude, longitude, message}).then(this.getMessages)
     })
   }
 

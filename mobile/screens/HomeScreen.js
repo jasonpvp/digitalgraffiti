@@ -7,11 +7,13 @@ import SvgLogo from '../assets/images/logo.svg'
 
 import { MonoText } from '../components/StyledText';
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
   const messageContext = React.useContext(MessageContext.Context)
 
   React.useEffect(() => {
-    messageContext.getMessages()
+    messageContext.getMessages().then(() => {
+      navigation.navigate('Messages')
+    })
   }, [])
 
   return (

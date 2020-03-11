@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Image, ScrollView, StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import MessageContext from '../contexts/messageContext';
-import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { FlingGestureHandler, Directions, State } from 'react-native-gesture-handler'
 
 export default function MessagesScreen() {
@@ -45,7 +44,12 @@ export default function MessagesScreen() {
         onHandlerStateChange={onFlingRight}
       >
         <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-          <TouchableHighlight onPress={nextMessage}>
+          <TouchableHighlight
+            onPress={prevMessage}
+            style={{justifyContent: 'center', width: 60, height: 60, borderRadius: 20}}
+            activeOpacity={1}
+            underlayColor='#fff'
+          >
             <Image
               source={require('../assets/images/arrowRight.gif')}
               style={{width: 60, height: 4, transform: [{rotate: '180deg'}]}}
@@ -54,7 +58,12 @@ export default function MessagesScreen() {
           <View style={{width: '50%', alignItems: 'center'}}>
             <Text style={{textAlign: 'center'}}>{message.message}</Text>
           </View>
-          <TouchableHighlight onPress={nextMessage}>
+          <TouchableHighlight
+            onPress={nextMessage}
+            style={{justifyContent: 'center', width: 60, height: 60, borderRadius: 20}}
+            activeOpacity={1}
+            underlayColor='#fff'
+          >
             <Image
               source={require('../assets/images/arrowRight.gif')}
               style={{width: 60, height: 4}}
