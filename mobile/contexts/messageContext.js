@@ -37,7 +37,8 @@ class Provider extends PureComponent {
     const context = {
       ...passThroughProps,
       ...this.state,
-      getMessages: this.getMessages
+      getMessages: this.getMessages,
+      sendMessage: this.sendMessage
     }
 
     return (
